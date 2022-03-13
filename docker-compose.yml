@@ -1,0 +1,27 @@
+version: "3.0"
+
+services:
+  app:
+    image: elaynelemos/laravel-8.x:node-16.x-php-8.0-apache-2
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mongo
+    networks:
+      - imu-system
+
+  mongo:
+    image: mongo:4.4.10
+    volumes:
+      - .docker/mongodb_data:/data/db:z
+    networks:
+      - imu-system
+
+volumes:
+  mongo_volume:
+    driver: local
+networks:
+  imu-system:
+    driver: bridge
